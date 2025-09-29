@@ -1,0 +1,1257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inner Performance - Unlock Your Potential</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --royal-blue: #0a1628;
+            --dark-blue: #050d1a;
+            --gold: #FFD700;
+            --bright-gold: #FFC107;
+            --white: #ffffff;
+            --light-gray: #f0f0f0;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: var(--dark-blue);
+            color: var(--white);
+            overflow-x: hidden;
+            cursor: default;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--royal-blue);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, var(--gold), var(--bright-gold));
+            border-radius: 5px;
+        }
+
+        /* Loading Screen */
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--dark-blue);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            transition: opacity 1s ease;
+        }
+
+        .loader-content {
+            position: relative;
+        }
+
+        .loader-ring {
+            width: 150px;
+            height: 150px;
+            border: 3px solid var(--royal-blue);
+            border-top: 3px solid var(--gold);
+            border-radius: 50%;
+            animation: spin 1.5s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loader-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 20px;
+            font-weight: bold;
+            background: linear-gradient(90deg, var(--gold), var(--white));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px 5%;
+            background: rgba(10, 22, 40, 0.95);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            transition: all 0.5s ease;
+            border-bottom: 1px solid rgba(255, 215, 0, 0.1);
+        }
+
+        nav.scrolled {
+            padding: 15px 5%;
+            background: rgba(5, 13, 26, 0.98);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            background: linear-gradient(135deg, var(--gold), var(--white));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 2px;
+            animation: logoGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes logoGlow {
+            0%, 100% { filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5)); }
+            50% { filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.8)); }
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 5px 0;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--gold), var(--white));
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: var(--gold);
+            transform: translateY(-2px);
+        }
+
+        /* Mobile Menu Toggle */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .menu-toggle span {
+            width: 30px;
+            height: 3px;
+            background: var(--gold);
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: radial-gradient(ellipse at center, var(--royal-blue) 0%, var(--dark-blue) 100%);
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--gold);
+            border-radius: 50%;
+            opacity: 0;
+            animation: floatParticle 15s infinite linear;
+        }
+
+        @keyframes floatParticle {
+            0% {
+                transform: translateY(100vh) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.5;
+            }
+            90% {
+                opacity: 0.5;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(100px);
+                opacity: 0;
+            }
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 2;
+            padding: 0 20px;
+            opacity: 0;
+            animation: fadeInUp 1.5s ease forwards;
+            animation-delay: 0.5s;
+        }
+
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--gold), var(--white), var(--gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: textShimmer 3s ease-in-out infinite;
+            line-height: 1.2;
+        }
+
+        @keyframes textShimmer {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .hero p {
+            font-size: clamp(1.1rem, 2vw, 1.4rem);
+            margin-bottom: 40px;
+            opacity: 0.9;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 15px 40px;
+            font-size: 16px;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 50px;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--gold), var(--bright-gold));
+            color: var(--dark-blue);
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255, 215, 0, 0.5);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--white);
+            border: 2px solid var(--gold);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 215, 0, 0.1);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.2);
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 100px 5%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section-dark {
+            background: linear-gradient(180deg, var(--dark-blue) 0%, var(--royal-blue) 100%);
+        }
+
+        .section-light {
+            background: linear-gradient(180deg, var(--royal-blue) 0%, #0d1b2f 100%);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+            opacity: 0;
+            transform: translateY(50px);
+        }
+
+        .section-title.animate {
+            animation: fadeInUp 1s ease forwards;
+        }
+
+        .section-title h2 {
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--gold), var(--white));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-title p {
+            font-size: 1.2rem;
+            opacity: 0.8;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Service Cards */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .service-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            transition: all 0.5s ease;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(50px);
+        }
+
+        .service-card.animate {
+            animation: fadeInUp 1s ease forwards;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 215, 0, 0.1) 0%, transparent 70%);
+            transition: all 0.5s ease;
+            opacity: 0;
+        }
+
+        .service-card:hover::before {
+            opacity: 1;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--gold);
+            box-shadow: 0 20px 40px rgba(255, 215, 0, 0.2);
+        }
+
+        .service-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            background: linear-gradient(135deg, var(--gold), var(--bright-gold));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            animation: iconPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes iconPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .service-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: var(--gold);
+        }
+
+        .service-card p {
+            opacity: 0.8;
+            line-height: 1.8;
+            margin-bottom: 25px;
+        }
+
+        /* Feature Lists */
+        .feature-list {
+            list-style: none;
+            text-align: left;
+            margin: 20px 0;
+        }
+
+        .feature-list li {
+            padding: 10px 0;
+            padding-left: 30px;
+            position: relative;
+            opacity: 0.9;
+        }
+
+        .feature-list li::before {
+            content: '▶';
+            position: absolute;
+            left: 0;
+            color: var(--gold);
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background: linear-gradient(135deg, var(--royal-blue) 0%, var(--dark-blue) 100%);
+            padding: 100px 5%;
+            position: relative;
+        }
+
+        .contact-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 50px;
+        }
+
+        .contact-info {
+            opacity: 0;
+            transform: translateX(-50px);
+        }
+
+        .contact-info.animate {
+            animation: fadeInLeft 1s ease forwards;
+        }
+
+        @keyframes fadeInLeft {
+            0% {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .contact-form {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            opacity: 0;
+            transform: translateX(50px);
+        }
+
+        .contact-form.animate {
+            animation: fadeInRight 1s ease forwards;
+        }
+
+        @keyframes fadeInRight {
+            0% {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--gold);
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 10px;
+            color: var(--white);
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--gold);
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.2);
+        }
+
+        .form-group select option {
+            background: var(--royal-blue);
+            color: var(--white);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .whatsapp-btn {
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+            box-shadow: 0 10px 30px rgba(37, 211, 102, 0.3);
+        }
+
+        .whatsapp-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(37, 211, 102, 0.5);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark-blue);
+            padding: 50px 5%;
+            text-align: center;
+            border-top: 1px solid rgba(255, 215, 0, 0.2);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 30px 0;
+        }
+
+        .social-links a {
+            width: 50px;
+            height: 50px;
+            border: 2px solid var(--gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 20px;
+        }
+
+        .social-links a:hover {
+            background: var(--gold);
+            color: var(--dark-blue);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3);
+        }
+
+        /* Floating Action Button */
+        .fab {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 30px;
+            text-decoration: none;
+            box-shadow: 0 10px 30px rgba(37, 211, 102, 0.4);
+            z-index: 999;
+            animation: fabPulse 2s ease-in-out infinite;
+            transition: all 0.3s ease;
+        }
+
+        @keyframes fabPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .fab:hover {
+            transform: scale(1.2);
+            box-shadow: 0 15px 40px rgba(37, 211, 102, 0.6);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: fixed;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background: var(--royal-blue);
+                flex-direction: column;
+                padding: 20px;
+                gap: 20px;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+
+            .menu-toggle.active span:nth-child(1) {
+                transform: rotate(-45deg) translate(-5px, 6px);
+            }
+
+            .menu-toggle.active span:nth-child(2) {
+                opacity: 0;
+            }
+
+            .menu-toggle.active span:nth-child(3) {
+                transform: rotate(45deg) translate(-5px, -6px);
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Scroll Reveal Animation Classes */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1s ease;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Gradient Line Animation */
+        .gradient-line {
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            background-size: 200% 100%;
+            animation: gradientMove 3s ease-in-out infinite;
+            margin: 40px 0;
+        }
+
+        @keyframes gradientMove {
+            0% { background-position: -100% 0; }
+            100% { background-position: 100% 0; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loader" id="loader">
+        <div class="loader-content">
+            <div class="loader-ring"></div>
+            <div class="loader-text">INNER PERFORMANCE</div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <div class="logo">INNER PERFORMANCE</div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#schools">Schools</a></li>
+                <li><a href="#training">1-2-1 Football Training</a></li>
+                <li><a href="#groups">Football Group Sessions</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="menu-toggle" id="menuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-bg" id="heroBg"></div>
+        <div class="hero-content">
+            <h1>Unlock Your Inner Potential</h1>
+            <p>Transform performance through elite mental training, personalized coaching, and cutting-edge psychological techniques</p>
+            <div class="cta-buttons">
+                <a href="#contact" class="btn btn-primary">Start Your Journey</a>
+                <a href="#schools" class="btn btn-secondary">Explore Services</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Schools Offer Section -->
+    <section class="section section-dark" id="schools">
+        <div class="container">
+            <div class="section-title">
+                <h2>Transforming Schools</h2>
+                <p>Empowering students and educators with behavior-based coaching through habit tracking and life coaching</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <svg viewBox="0 0 24 24" width="36" height="36" aria-hidden="true">
+                            <rect x="3" y="3" width="9" height="18" rx="2" fill="#000"/>
+                            <rect x="12" y="3" width="9" height="18" rx="2" fill="#000"/>
+                            <line x1="12" y1="3" x2="12" y2="21" stroke="#000" stroke-width="2"/>
+                        </svg>
+                    </div>
+                    <h3>Student Excellence</h3>
+                    <p>Behavior-based coaching through habit tracking and life coaching to unlock academic potential and build resilience</p>
+                    <ul class="feature-list">
+                        <li>Behavior tracking & habit formation</li>
+                        <li>Life coaching for academic success</li>
+                        <li>Confidence building through behavior change</li>
+                        <li>Goal setting with accountability systems</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-primary">Learn More</a>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <svg viewBox="0 0 24 24" width="36" height="36" aria-hidden="true">
+                            <circle cx="12" cy="7" r="4" fill="#000"/>
+                            <rect x="5" y="12" width="14" height="8" rx="2" fill="#000"/>
+                        </svg>
+                    </div>
+                    <h3>Teacher Development</h3>
+                    <p>Equipping educators with behavior management tools and life coaching techniques to inspire and support student success</p>
+                    <ul class="feature-list">
+                        <li>Behavior management psychology</li>
+                        <li>Life coaching techniques for teachers</li>
+                        <li>Stress reduction through habit tracking</li>
+                        <li>Communication excellence training</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-primary">Get Started</a>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <svg viewBox="0 0 24 24" width="36" height="36" aria-hidden="true">
+                            <rect x="5" y="3" width="14" height="18" rx="1" fill="#000"/>
+                        </svg>
+                    </div>
+                    <h3>Whole School Approach</h3>
+                    <p>Creating a culture of excellence through behavior-based habit tracking and life coaching programs throughout your institution</p>
+                    <ul class="feature-list">
+                        <li>Custom behavior coaching programs</li>
+                        <li>Habit tracking system implementation</li>
+                        <li>Parent life coaching workshops</li>
+                        <li>Ongoing behavior support & evaluation</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-primary">Book Consultation</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="gradient-line"></div>
+
+    <!-- 1-2-1 Training Section -->
+    <section class="section section-light" id="training">
+        <div class="container">
+            <div class="section-title">
+                <h2>Elite 1-2-1 Football Training</h2>
+                <p>Personalized football coaching tailored to your unique goals and challenges</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <svg viewBox="0 0 24 24" width="36" height="36" aria-hidden="true">
+                            <circle cx="12" cy="12" r="9" fill="#000"/>
+                        </svg>
+                    </div>
+                    <h3>Football Performance Psychology</h3>
+                    <p>Master your mind to achieve peak performance in football</p>
+                    <ul class="feature-list">
+                        <li>Mental toughness training</li>
+                        <li>Visualization techniques</li>
+                        <li>Flow state optimization</li>
+                        <li>Pressure management</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-primary">Start Training</a>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <svg viewBox="0 0 24 24" width="36" height="36" aria-hidden="true">
+                            <rect x="4" y="7" width="16" height="10" rx="1" fill="#000"/>
+                        </svg>
+                    </div>
+                    <h3>Football Goal Achievement</h3>
+                    <p>Strategic football training planning and accountability to reach your football aspirations</p>
+                    <ul class="feature-list">
+                        <li>SMART goal setting</li>
+                        <li>Action plan development</li>
+                        <li>Progress tracking</li>
+                        <li>Obstacle navigation</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-primary">Book Session</a>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <svg viewBox="0 0 24 24" width="36" height="36" aria-hidden="true">
+                            <path d="M8 7a3 3 0 016 0v1h1a3 3 0 010 6h-1v1a3 3 0 11-6 0v-1H7a3 3 0 010-6h1V7z" fill="#000"/>
+                        </svg>
+                    </div>
+                    <h3>Football Mindset Mastery</h3>
+                    <p>Transform limiting beliefs into empowering thoughts for football success</p>
+                    <ul class="feature-list">
+                        <li>Cognitive restructuring</li>
+                        <li>Self-talk optimization</li>
+                        <li>Confidence building</li>
+                        <li>Resilience development</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-primary">Transform Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="gradient-line"></div>
+
+    <!-- Group Sessions Section -->
+    <section class="section section-dark" id="groups">
+        <div class="container">
+            <div class="section-title">
+                <h2>Dynamic Football Group Sessions</h2>
+                <p>Harness the power of collective energy and shared growth in football coaching</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <svg viewBox="0 0 24 24" width="36" height="36" aria-hidden="true">
+                            <polygon points="13,2 6,14 11,14 9,22 18,10 12,10" fill="#000"/>
+                        </svg>
+                    </div>
+                    <h3>Football Team Building</h3>
+                    <p>Foster collaboration and high-performance team dynamics for football teams</p>
+                    <ul class="feature-list">
+                        <li>Trust exercises</li>
+                        <li>Communication workshops</li>
+                        <li>Leadership development</li>
+                        <li>Conflict resolution</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-primary">Book Team Session</a>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <svg viewBox="0 0 24 24" width="36" height="36" aria-hidden="true">
+                            <path d="M12 2c3 3 4 6 4 9s-1 6-4 9c-3-3-4-6-4-9s1-6 4-9z" fill="#000"/>
+                        </svg>
+                    </div>
+                    <h3>Football Motivation Workshops</h3>
+                    <p>Ignite passion and drive in your football team or organization</p>
+                    <ul class="feature-list">
+                        <li>Inspirational presentations</li>
+                        <li>Interactive activities</li>
+                        <li>Success mindset training</li>
+                        <li>Energy optimization</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-primary">Schedule Workshop</a>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <svg viewBox="0 0 24 24" width="36" height="36" aria-hidden="true">
+                            <polygon points="12,2 15,9 22,9 17,14 19,21 12,17 5,21 7,14 2,9 9,9" fill="#000"/>
+                        </svg>
+                    </div>
+                    <h3>Football Wellness Programs</h3>
+                    <p>Holistic approach to mental and emotional well-being for football players</p>
+                    <ul class="feature-list">
+                        <li>Stress management</li>
+                        <li>Mindfulness training</li>
+                        <li>Work-life balance</li>
+                        <li>Burnout prevention</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-primary">Join Program</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section" id="contact">
+        <div class="container">
+            <div class="section-title">
+                <h2>Start Your Transformation</h2>
+                <p>Connect with us to begin your journey to peak performance</p>
+            </div>
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h3 style="color: var(--gold); font-size: 2rem; margin-bottom: 30px;">Get In Touch</h3>
+                    <p style="margin-bottom: 30px; line-height: 1.8; opacity: 0.9;">
+                        Ready to unlock your full potential? Whether you're a school looking for behavior-based coaching through habit tracking and life coaching, 
+                        an individual seeking football training, or a football team aiming for excellence, we're here to guide you.
+                    </p>
+                    <div style="margin-bottom: 30px;">
+                        <h4 style="color: var(--gold); margin-bottom: 15px;">Quick Contact</h4>
+                        <p style="opacity: 0.8; margin-bottom: 10px;">✉️ Innerpk@tutanota.com</p>
+                        <p style="opacity: 0.8; margin-bottom: 10px;">📞 +44 7719504107</p>
+                        <p style="opacity: 0.8;">📍 United Kingdom</p>
+                    </div>
+                    <a href="https://wa.me/447719504107?text=Hi%20Inner%20Performance,%20I'm%20interested%20in%20your%20training%20programs" 
+                       class="whatsapp-btn" target="_blank">
+                        💬 Chat on WhatsApp
+                    </a>
+                </div>
+                <div class="contact-form">
+                    <h3 style="color: var(--gold); font-size: 1.8rem; margin-bottom: 30px;">Send Enquiry</h3>
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Full Name *</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address *</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" name="phone">
+                        </div>
+                        <div class="form-group">
+                            <label for="service">Service Interest *</label>
+                            <select id="service" name="service" required>
+                                <option value="">Select a service</option>
+                                <option value="schools">Schools Behavior Coaching Program</option>
+                                <option value="individual">1-2-1 Football Training</option>
+                                <option value="group">Football Group Sessions</option>
+                                <option value="other">Other Enquiry</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Your Message *</label>
+                            <textarea id="message" name="message" required 
+                                      placeholder="Tell us about your goals and how we can help..."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">
+                            Send Your Enquiry
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="logo" style="font-size: 2rem; margin-bottom: 20px;">INNER PERFORMANCE</div>
+            <p style="opacity: 0.8; margin-bottom: 30px;">Unlock Your Potential • Transform Your Life</p>
+            <div class="social-links">
+                <a href="#" aria-label="Facebook">f</a>
+                <a href="#" aria-label="Twitter">X</a>
+                <a href="#" aria-label="LinkedIn">in</a>
+                <a href="#" aria-label="Instagram">📸</a>
+            </div>
+            <div class="gradient-line" style="margin: 40px auto; max-width: 200px;"></div>
+            <p style="opacity: 0.6; font-size: 14px;">© 2024 Inner Performance. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/447719504107?text=Hi%20Inner%20Performance,%20I'm%20interested%20in%20your%20training%20programs" 
+       class="fab" target="_blank" aria-label="WhatsApp">
+        💬
+    </a>
+
+    <script>
+        // Loader
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                const loader = document.getElementById('loader');
+                loader.style.opacity = '0';
+                setTimeout(function() {
+                    loader.style.display = 'none';
+                }, 1000);
+            }, 1500);
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile menu toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+
+        menuToggle.addEventListener('click', function() {
+            menuToggle.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+
+        // Close mobile menu on link click
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                menuToggle.classList.remove('active');
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Parallax particles in hero
+        function createParticles() {
+            const heroBg = document.getElementById('heroBg');
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 15 + 's';
+                particle.style.animationDuration = (15 + Math.random() * 10) + 's';
+                heroBg.appendChild(particle);
+            }
+        }
+        createParticles();
+
+        // Scroll reveal animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate');
+                    // Stagger animation for service cards
+                    if (entry.target.classList.contains('service-card')) {
+                        const cards = entry.target.parentElement.querySelectorAll('.service-card');
+                        cards.forEach((card, index) => {
+                            setTimeout(() => {
+                                card.classList.add('animate');
+                            }, index * 200);
+                        });
+                    }
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements
+        document.querySelectorAll('.section-title').forEach(el => observer.observe(el));
+        document.querySelectorAll('.service-card').forEach(el => observer.observe(el));
+        document.querySelectorAll('.contact-info').forEach(el => observer.observe(el));
+        document.querySelectorAll('.contact-form').forEach(el => observer.observe(el));
+
+        // Form submission
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form values
+            const formData = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                service: document.getElementById('service').value,
+                message: document.getElementById('message').value
+            };
+
+            // Show success message (in real implementation, this would send to a server)
+            const btn = e.target.querySelector('button[type="submit"]');
+            const originalText = btn.textContent;
+            btn.textContent = '✓ Enquiry Sent Successfully!';
+            btn.style.background = 'linear-gradient(135deg, #25D366, #128C7E)';
+            
+            // Reset form
+            setTimeout(() => {
+                e.target.reset();
+                btn.textContent = originalText;
+                btn.style.background = '';
+            }, 3000);
+
+            // In production, you would send this data to your server
+            console.log('Form submitted:', formData);
+        });
+
+        // Mouse move effect for service cards
+        document.querySelectorAll('.service-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = ((e.clientX - rect.left) / rect.width) * 100;
+                const y = ((e.clientY - rect.top) / rect.height) * 100;
+                
+                card.style.background = `radial-gradient(circle at ${x}% ${y}%, rgba(255, 215, 0, 0.05), transparent)`;
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.background = '';
+            });
+        });
+
+        // Dynamic typing effect for hero title
+        const heroTitle = document.querySelector('.hero h1');
+        const originalText = heroTitle.textContent;
+        let charIndex = 0;
+
+        function typeWriter() {
+            if (charIndex === 0) {
+                heroTitle.textContent = '';
+            }
+            
+            if (charIndex < originalText.length) {
+                heroTitle.textContent += originalText.charAt(charIndex);
+                charIndex++;
+                setTimeout(typeWriter, 50);
+            }
+        }
+
+        // Start typing effect after loader disappears
+        setTimeout(typeWriter, 2000);
+
+        // Performance optimization - lazy load animations
+        const lazyAnimations = () => {
+            const elements = document.querySelectorAll('.reveal:not(.active)');
+            
+            elements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementBottom = element.getBoundingClientRect().bottom;
+                
+                if (elementTop < window.innerHeight && elementBottom > 0) {
+                    element.classList.add('active');
+                }
+            });
+        };
+
+        window.addEventListener('scroll', lazyAnimations);
+        window.addEventListener('resize', lazyAnimations);
+        lazyAnimations();
+
+        // Add subtle parallax effect to sections
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const parallaxElements = document.querySelectorAll('.section');
+            
+            parallaxElements.forEach((element, index) => {
+                const speed = index % 2 === 0 ? 0.5 : 0.3;
+                element.style.transform = `translateY(${scrolled * speed * 0.1}px)`;
+            });
+        });
+    </script>
+</body>
+</html>

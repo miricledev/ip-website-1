@@ -1,0 +1,5 @@
+# Placeholder for hero video
+# Replace this file with your actual hero video file
+# Supported formats: MP4, WebM
+# Recommended: 1920x1080, 30fps, H.264 codec for MP4
+# Fallback image will be used if video fails to load

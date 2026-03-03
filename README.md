@@ -1,6 +1,6 @@
 # Inner Performance Website
 
-A luxurious, high-tech, multi-page static website for Inner Performance - a mental training and behavior coaching organization.
+A luxurious, high-tech, multi-page static website for Inner Performance - a mental training and behaviour coaching organisation.
 
 ## 🎯 Features
 
@@ -12,7 +12,7 @@ A luxurious, high-tech, multi-page static website for Inner Performance - a ment
 - **WhatsApp Integration**: Direct messaging integration for instant contact
 - **Form Handling**: Client-side validation with AJAX submission simulation
 - **Gallery System**: Lightbox modal with random photo selection
-- **SEO Optimized**: Meta tags, structured data, and semantic HTML
+- **SEO Optimised**: Meta tags, structured data, and semantic HTML
 
 ## 📁 Project Structure
 
@@ -189,7 +189,7 @@ Pre-configured with phone number `+44 7719504107`:
 ## 📈 SEO Features
 
 - **Meta Tags**: Comprehensive meta descriptions
-- **Open Graph**: Social media optimization
+- **Open Graph**: Social media optimisation
 - **Structured Data**: JSON-LD for search engines
 - **Semantic HTML**: Proper heading hierarchy
 - **Alt Text**: Image accessibility
@@ -210,7 +210,7 @@ Pre-configured with phone number `+44 7719504107`:
 
 ## 📞 Support
 
-For technical support or customization requests, contact the development team.
+For technical support or customisation requests, contact the development team.
 
 ---
 

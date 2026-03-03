@@ -119,11 +119,11 @@ All forms now have:
 
 ## 🎯 Key Benefits
 
-1. **Centralized Data** - All form submissions in one Google Sheet
+1. **Centralised Data** - All form submissions in one Google Sheet
 2. **Easy Access** - View and export data anytime
 3. **No Database Needed** - Simple, free solution
 4. **Email Notifications** (Optional) - Get alerts for new submissions
-5. **Organized** - Separate sheets for each form type
+5. **Organised** - Separate sheets for each form type
 6. **Timestamps** - Know exactly when each submission came in
 7. **Page Tracking** - See which page the submission came from
 
@@ -134,7 +134,7 @@ All forms now have:
 - **Backup Your Data** - Regularly export your Google Sheet
 - **Monitor Submissions** - Check the sheet regularly for new enquiries
 - **Set Up Notifications** - Enable email alerts in Google Apps Script (optional)
-- **Customize Columns** - Add more fields to sheets as needed
+- **Customise Columns** - Add more fields to sheets as needed
 - **Create Reports** - Use Google Sheets charts for analytics
 
 ---

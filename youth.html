@@ -51,6 +51,7 @@
                 <li><a href="youth.html" class="active">Youth Development</a></li>
                 <li><a href="schools.html">Schools</a></li>
                 <li><a href="contact.html">Contact</a></li>
+                <li><a href="https://inner-performance-key-performance.onrender.com/login" class="nav-login">Log in</a></li>
             </ul>
             <div class="menu-toggle" id="menuToggle">
                 <span></span>
@@ -69,7 +70,7 @@
             <p>Empowering young minds and developing tomorrow's champions through specialized youth programs designed to unlock potential and build character</p>
             <div class="cta-buttons">
                 <a href="#programs" class="btn btn-primary">Explore Programs</a>
-                <a href="#brochure" class="btn btn-secondary">Download Brochure</a>
+                <span class="btn btn-secondary btn-disabled" style="cursor: not-allowed; opacity: 0.7;">PDF coming soon</span>
             </div>
         </div>
     </section>
@@ -443,18 +444,7 @@
                         </ul>
                         
                         <div class="download-buttons">
-                            <a href="assets/youth-brochure.pdf" class="btn btn-primary" download>
-                                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" style="margin-right: 8px; vertical-align: middle;">
-                                    <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/>
-                                </svg>
-                                Download PDF
-                            </a>
-                            <a href="assets/youth-brochure.pdf" class="btn btn-secondary" target="_blank">
-                                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" style="margin-right: 8px; vertical-align: middle;">
-                                    <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
-                                </svg>
-                                View Online
-                            </a>
+                            <span class="btn btn-primary btn-disabled" style="cursor: not-allowed; opacity: 0.7;">PDF coming soon</span>
                         </div>
                         
                         <div class="brochure-note">
@@ -509,7 +499,7 @@
     </section>
 
     <!-- Contact CTA Section -->
-    <section class="contact-section">
+    <section class="contact-section" id="contact">
         <div class="container">
             <div class="section-title">
                 <h2>Ready to Invest in Your Child's Future?</h2>
@@ -630,6 +620,12 @@
         </div>
     </footer>
 
+    <!-- Floating Contact Button -->
+    <a href="#contact" class="fab-contact" aria-label="Contact form">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+        </svg>
+    </a>
     <!-- Floating WhatsApp Button -->
     <a href="https://wa.me/447719504107?text=Hi%20Inner%20Performance,%20I'm%20interested%20in%20your%20youth%20development%20programs" 
        class="fab" target="_blank" aria-label="WhatsApp">
@@ -639,6 +635,7 @@
     </a>
 
     <script src="js/main.js"></script>
+    <script src="js/form-handler.js"></script>
     
     <!-- Additional styles for this page -->
     <style>

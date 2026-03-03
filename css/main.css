@@ -146,7 +146,7 @@ body {
     position: fixed;
     top: 0;
     width: 100%;
-    padding: var(--spacing-lg) 5%;
+    padding: var(--spacing-md) 4%;
     background: rgba(11, 35, 80, 0.95);
     backdrop-filter: var(--glass-blur);
     z-index: 1000;
@@ -155,7 +155,7 @@ body {
 }
 
 .navbar.scrolled {
-    padding: var(--spacing-md) 5%;
+    padding: var(--spacing-sm) 4%;
     background: rgba(5, 13, 26, 0.98);
     box-shadow: var(--shadow-medium);
 }
@@ -204,19 +204,21 @@ body {
 
 .nav-links {
     display: flex;
-    gap: var(--spacing-2xl);
+    gap: var(--spacing-xl);
     list-style: none;
     align-items: center;
+    flex-wrap: nowrap;
 }
 
 .nav-links a {
     color: var(--white);
     text-decoration: none;
-    font-size: var(--font-size-base);
+    font-size: 0.9375rem;
     font-weight: 500;
     transition: var(--transition-normal);
     position: relative;
     padding: var(--spacing-sm) 0;
+    white-space: nowrap;
 }
 
 .nav-links a::after {
@@ -239,6 +241,28 @@ body {
 .nav-links a.active {
     color: var(--gold);
     transform: translateY(-2px);
+}
+
+.nav-links a.nav-login {
+    background: var(--metallic-gold);
+    color: var(--dark-blue);
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--radius-full);
+    font-weight: 600;
+    font-size: 0.875rem;
+    white-space: nowrap;
+    margin-left: var(--spacing-md);
+}
+
+.nav-links a.nav-login::after {
+    display: none;
+}
+
+.nav-links a.nav-login:hover {
+    color: var(--dark-blue);
+    filter: brightness(1.1);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 215, 0, 0.35);
 }
 
 /* Mobile Menu Toggle */
@@ -1400,6 +1424,7 @@ body {
     background: radial-gradient(circle, rgba(255, 215, 0, 0.05) 0%, transparent 70%);
     transition: all var(--transition-slow);
     opacity: 0;
+    pointer-events: none;
 }
 
 .glass-card:hover::before {
@@ -1410,6 +1435,36 @@ body {
     transform: translateY(-10px);
     border-color: var(--gold);
     box-shadow: 0 25px 50px rgba(255, 215, 0, 0.15);
+}
+
+/* Disable hover lift on form containers - prevents layout shift when filling out forms */
+.demo-container.glass-card:hover,
+.main-contact-form.glass-card:hover,
+.form-info.glass-card:hover {
+    transform: none;
+}
+
+/* Form containers: allow content to show, add bottom padding so submit button isn't hidden */
+.demo-container.glass-card,
+.main-contact-form.glass-card,
+.contact-container .contact-form {
+    overflow: visible;
+    padding-bottom: var(--spacing-3xl);
+}
+
+/* Sections with forms: ensure submit button isn't clipped by next section */
+#demo.section,
+.contact-section,
+#contact.section,
+#contact-form.section {
+    overflow: visible;
+    padding-bottom: var(--spacing-4xl);
+}
+
+/* Demo section: extra space so submit button stays fully above next section */
+#demo.section {
+    margin-bottom: var(--spacing-4xl);
+    padding-bottom: var(--spacing-4xl);
 }
 
 /* Service Cards Grid */
@@ -1668,6 +1723,10 @@ body {
     min-height: 120px;
 }
 
+form button[type="submit"] {
+    margin-top: var(--spacing-lg);
+}
+
 /* Contact Section */
 .contact-section {
     background: linear-gradient(135deg, var(--royal-blue) 0%, var(--dark-blue) 100%);
@@ -1731,6 +1790,36 @@ body {
     transform: translateY(-3px);
     box-shadow: 0 15px 40px rgba(37, 211, 102, 0.5);
     filter: brightness(1.1);
+}
+
+/* Floating Contact Button - scrolls to form */
+.fab-contact {
+    position: fixed;
+    bottom: 30px;
+    right: 110px;
+    width: 56px;
+    height: 56px;
+    background: linear-gradient(135deg, var(--metallic-gold), var(--bright-gold));
+    color: var(--dark-blue);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    box-shadow: 0 4px 20px rgba(255, 215, 0, 0.4);
+    z-index: 999;
+    transition: all var(--transition-bounce);
+}
+
+.fab-contact:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 25px rgba(255, 215, 0, 0.5);
+    color: var(--dark-blue);
+}
+
+.fab-contact svg {
+    width: 24px;
+    height: 24px;
 }
 
 /* Floating Action Button */
@@ -1997,6 +2086,22 @@ body {
     }
 }
 
+@media (max-width: 1100px) {
+    .nav-links {
+        gap: var(--spacing-md);
+    }
+    
+    .nav-links a {
+        font-size: 0.875rem;
+    }
+    
+    .nav-links a.nav-login {
+        padding: var(--spacing-xs) var(--spacing-sm);
+        font-size: 0.8125rem;
+        margin-left: var(--spacing-sm);
+    }
+}
+
 @media (max-width: 768px) {
     .nav-links {
         display: none;
@@ -2014,6 +2119,16 @@ body {
 
     .nav-links.active {
         display: flex;
+    }
+
+    .nav-links a {
+        font-size: var(--font-size-base);
+    }
+
+    .nav-links a.nav-login {
+        padding: var(--spacing-sm) var(--spacing-lg);
+        font-size: var(--font-size-base);
+        margin-left: 0;
     }
 
     .menu-toggle {
@@ -2156,6 +2271,13 @@ body {
         right: 20px;
         font-size: var(--font-size-2xl);
     }
+    
+    .fab-contact {
+        width: 50px;
+        height: 50px;
+        bottom: 20px;
+        right: 90px;
+    }
 }
 
 @media (max-width: 480px) {
@@ -2185,6 +2307,7 @@ body {
 @media print {
     .navbar,
     .fab,
+    .fab-contact,
     .lightbox {
         display: none !important;
     }
@@ -2227,7 +2350,8 @@ body {
         animation: none;
     }
     
-    .fab {
+    .fab,
+    .fab-contact {
         animation: none;
     }
 }

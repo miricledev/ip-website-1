@@ -51,6 +51,7 @@
                 <li><a href="youth.html">Youth Development</a></li>
                 <li><a href="schools.html" class="active">Schools</a></li>
                 <li><a href="contact.html">Contact</a></li>
+                <li><a href="https://inner-performance-key-performance.onrender.com/login" class="nav-login">Log in</a></li>
             </ul>
             <div class="menu-toggle" id="menuToggle">
                 <span></span>
@@ -392,8 +393,8 @@
 
     <div class="gradient-line"></div>
 
-    <!-- Success Stories -->
-    <section class="section section-light" id="success">
+    <!-- Success Stories (hidden - placeholder for real testimonials) -->
+    <section class="section section-light" id="success" style="display: none;">
         <div class="container">
             <div class="section-title">
                 <h2>Success Stories</h2>
@@ -597,8 +598,10 @@
         </div>
     </section>
 
+    <div class="gradient-line"></div>
+
     <!-- Contact CTA Section -->
-    <section class="contact-section">
+    <section class="contact-section" id="contact">
         <div class="container">
             <div class="section-title">
                 <h2>Ready to Transform Your School?</h2>
@@ -703,6 +706,12 @@
         </div>
     </footer>
 
+    <!-- Floating Contact Button -->
+    <a href="#contact" class="fab-contact" aria-label="Contact form">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+        </svg>
+    </a>
     <!-- Floating WhatsApp Button -->
     <a href="https://wa.me/447719504107?text=Hi%20Inner%20Performance,%20I'm%20interested%20in%20your%20schools%20programs" 
        class="fab" target="_blank" aria-label="WhatsApp">
@@ -712,6 +721,7 @@
     </a>
 
     <script src="js/main.js"></script>
+    <script src="js/form-handler.js"></script>
     
     <!-- Additional styles for this page -->
     <style>
@@ -948,6 +958,15 @@
             max-width: 1000px;
             margin: 3rem auto;
             padding: 2.5rem;
+            padding-bottom: 4rem;
+        }
+        
+        .demo-form form {
+            padding-bottom: 2rem;
+        }
+        
+        .demo-form button[type="submit"] {
+            margin-bottom: 1rem;
         }
         
         .demo-content {

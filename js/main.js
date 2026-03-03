@@ -420,15 +420,8 @@ class InnerPerformance {
     }
 
     setupForms() {
-        // Contact form submission
-        const contactForm = document.getElementById('contactForm');
-        if (contactForm) {
-            contactForm.addEventListener('submit', (e) => {
-                this.handleFormSubmission(e);
-            });
-        }
-        
-        // Form validation
+        // Form submission is handled by form-handler.js (sends to Google Sheets)
+        // Form validation only (blur/input feedback)
         this.setupFormValidation();
     }
 
@@ -739,8 +732,11 @@ class InnerPerformance {
             });
         });
         
-        // Card tilt effect
+        // Card tilt effect (exclude form containers - tilt is distracting when filling out forms)
         document.querySelectorAll('.service-card, .glass-card').forEach(card => {
+            if (card.classList.contains('demo-container') || card.classList.contains('main-contact-form') || card.classList.contains('form-info') || card.classList.contains('brochure-container') || card.querySelector('form')) {
+                return;
+            }
             card.addEventListener('mousemove', (e) => {
                 const rect = card.getBoundingClientRect();
                 const x = e.clientX - rect.left;

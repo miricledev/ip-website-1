@@ -49,7 +49,6 @@
                 <li><a href="index.html">Home</a></li>
                 <li><a href="about.html">About</a></li>
                 <li><a href="coaching.html">Coaching Services</a></li>
-                <li><a href="group.html">Group Sessions</a></li>
                 <li><a href="youth.html">Youth Development</a></li>
                 <li><a href="schools.html" class="active">Schools</a></li>
                 <li><a href="contact.html">Contact</a></li>
@@ -85,7 +84,7 @@
                 <p>Evidence-based behaviour coaching and habit tracking programmes that transform schools, enhance student outcomes, and support teacher excellence</p>
             </div>
             
-            <div class="services-grid">
+            <div class="services-grid schools-programs-grid">
                 <div class="service-card glass-card">
                     <div class="service-image">
                         <img src="photos/IMG_9257.jpg" alt="Student Excellence Program" loading="lazy">
@@ -146,7 +145,7 @@
                     <a href="contact.html" class="btn btn-primary">Get Started</a>
                 </div>
                 
-                <div class="service-card glass-card">
+                <div class="service-card glass-card schools-program-card-span">
                     <div class="service-image">
                         <img src="photos/IMG_9259.jpg" alt="Whole School Approach" loading="lazy">
                     </div>
@@ -299,7 +298,7 @@
                 <p>Our proven step-by-step approach ensures successful programme implementation and maximum impact</p>
             </div>
             
-            <div class="process-timeline">
+            <div class="process-timeline implementation-timeline">
                 <div class="process-step">
                     <div class="step-number">1</div>
                     <div class="step-content">
@@ -807,19 +806,65 @@
             font-weight: bold;
         }
         
-        .process-timeline {
-            max-width: 900px;
-            margin: 3rem auto;
+        /* Schools programs - less cramped layout */
+        .schools-programs-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2.5rem;
+            max-width: 1100px;
+            margin-left: auto;
+            margin-right: auto;
         }
         
-        .process-step {
+        .schools-program-card-span {
+            grid-column: 1 / -1;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        @media (max-width: 900px) {
+            .schools-programs-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .schools-program-card-span {
+                max-width: none;
+            }
+        }
+        
+        /* Implementation timeline - vertical timeline style */
+        .implementation-timeline {
+            max-width: 800px;
+            margin: 3rem auto;
+            position: relative;
+            padding-left: 0;
+        }
+        
+        .implementation-timeline::before {
+            content: '';
+            position: absolute;
+            left: 29px;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(to bottom, var(--gold), rgba(255, 215, 0, 0.3));
+            border-radius: 2px;
+        }
+        
+        .implementation-timeline .process-step {
             display: flex;
             align-items: flex-start;
-            margin-bottom: 3rem;
+            margin-bottom: 2.5rem;
             gap: 2rem;
+            position: relative;
         }
         
-        .step-number {
+        .implementation-timeline .process-step:last-child {
+            margin-bottom: 0;
+        }
+        
+        .implementation-timeline .step-number {
             width: 60px;
             height: 60px;
             background: var(--metallic-gold);
@@ -831,38 +876,46 @@
             font-size: 1.5rem;
             font-weight: 700;
             flex-shrink: 0;
+            position: relative;
+            z-index: 2;
+            border: 3px solid var(--dark-blue);
+            box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.5);
         }
         
-        .step-content {
+        .implementation-timeline .step-content {
             flex: 1;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
         }
         
-        .step-content h3 {
+        .implementation-timeline .step-content h3 {
             color: var(--gold);
-            margin-bottom: 1rem;
-            font-size: 1.5rem;
+            margin-bottom: 0.75rem;
+            font-size: 1.35rem;
         }
         
-        .step-content ul {
-            margin: 1rem 0;
+        .implementation-timeline .step-content ul {
+            margin: 0.75rem 0;
             padding-left: 1.5rem;
         }
         
-        .step-content li {
-            margin-bottom: 0.5rem;
+        .implementation-timeline .step-content li {
+            margin-bottom: 0.4rem;
             opacity: 0.9;
         }
         
-        .step-duration {
+        .implementation-timeline .step-duration {
             display: inline-block;
-            background: var(--glass-bg);
+            background: rgba(255, 215, 0, 0.15);
             border: 1px solid var(--glass-border);
-            padding: 0.5rem 1rem;
+            padding: 0.4rem 0.9rem;
             border-radius: var(--radius-lg);
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: var(--gold);
             font-weight: 600;
-            margin-top: 1rem;
+            margin-top: 0.75rem;
         }
         
         .success-stories {
@@ -1025,10 +1078,23 @@
                 gap: 2rem;
             }
             
-            .process-step {
-                flex-direction: column;
-                text-align: center;
-                gap: 1rem;
+            .implementation-timeline::before {
+                left: 23px;
+            }
+            
+            .implementation-timeline .process-step {
+                flex-direction: row;
+                gap: 1.25rem;
+            }
+            
+            .implementation-timeline .step-number {
+                width: 50px;
+                height: 50px;
+                font-size: 1.25rem;
+            }
+            
+            .implementation-timeline .step-content {
+                padding: 1.25rem;
             }
             
             .story-header {

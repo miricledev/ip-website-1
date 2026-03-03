@@ -2105,8 +2105,8 @@ form button[type="submit"] {
     }
 }
 
-/* Tablet/iPad portrait: use hamburger menu to prevent nav overflow */
-@media (max-width: 1024px) {
+/* Tablet/iPad: use hamburger menu to prevent nav overflow (includes iPad 10th gen landscape ~1180px) */
+@media (max-width: 1200px) {
     .nav-links {
         display: none;
         position: fixed;
